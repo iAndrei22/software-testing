@@ -50,4 +50,58 @@ public class LuggageFareCalculatorTest {
         }
     }
 
+    @Test
+    @DisplayName("BVA: Limita numarului maxim de bagaje (MAX_BAGS_PER_PASSENGER = 5)")
+    void testMaxBagsBoundary() {
+        for (int i = 0; i < 5; i++) {
+            economyNormalCalc.addLuggage(10.0);
+        }
+        assertEquals(5, economyNormalCalc.getLuggageCount());
+
+        Exception exception = assertThrows(IllegalStateException.class, () -> {
+            economyNormalCalc.addLuggage(15.0);
+        });
+        assertTrue(exception.getMessage().contains("S-a atins numarul maxim de bagaje permise"));
+    }
+
+    @Test
+    @DisplayName("Condition/Decision: True && True (Greutate depasita, nu este VIP)")
+    void testConditionWeightExceededNotVip() {
+        economyNormalCalc.addLuggage(24.0);
+        double expectedFee = 1.0 * LuggageFareCalculator.OVERWEIGHT_FEE_PER_KG;
+        assertEquals(expectedFee, economyNormalCalc.calculateTotalFee());
+    }
+
+    @Test
+    @DisplayName("Condition/Decision: True && False (Greutate depasita, DAR este VIP)")
+    void testConditionWeightExceededIsVip() {
+        LuggageFareCalculator vipEconomy = new LuggageFareCalculator(LuggageFareCalculator.TicketClass.ECONOMY, true);
+        vipEconomy.addLuggage(24.0);
+        assertEquals(0.0, vipEconomy.calculateTotalFee(), "VIP-urile nu platesc taxa de supragreutate");
+    }
+
+    @Test
+    @DisplayName("Condition/Decision: False && True (Greutate normala, nu este VIP)")
+    void testConditionWeightNormalNotVip() {
+        economyNormalCalc.addLuggage(20.0);
+        assertEquals(0.0, economyNormalCalc.calculateTotalFee());
+    }
+
+    @Test
+    @DisplayName("McCabe Path 1: Fara bagaje (Iesire rapida din metoda)")
+    void testEmptyLuggagePath() {
+        assertEquals(0.0, economyNormalCalc.calculateTotalFee(), "Taxa pentru 0 bagaje trebuie sa fie 0");
+    }
+
+    @Test
+    @DisplayName("McCabe Path 2 & Statement Coverage: Resetarea starii bagajelor")
+    void testResetLuggage() {
+        economyNormalCalc.addLuggage(15.0);
+        assertEquals(1, economyNormalCalc.getLuggageCount());
+
+        economyNormalCalc.resetLuggage();
+        assertEquals(0, economyNormalCalc.getLuggageCount());
+        assertEquals(0.0, economyNormalCalc.calculateTotalFee());
+    }
+
 }
