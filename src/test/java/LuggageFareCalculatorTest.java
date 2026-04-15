@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LuggageFareCalculatorTestInitial {
+public class LuggageFareCalculatorTest {
 
     private LuggageFareCalculator economyNormalCalc;
     private LuggageFareCalculator businessVipCalc;
@@ -124,4 +124,24 @@ public class LuggageFareCalculatorTestInitial {
         double expectedFee = (2.0 * LuggageFareCalculator.OVERWEIGHT_FEE_PER_KG) + LuggageFareCalculator.EXTRA_BAG_FEE;
         assertEquals(expectedFee, economyNormalCalc.calculateTotalFee());
     }
+
+    @Test
+    @DisplayName("Kill Mutant 1: Schimbarea <= cu < in validarea greutatii")
+    void testKillWeightZeroMutant() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            economyNormalCalc.addLuggage(0.0);
+        }, "Greutatea de exact 0.0 trebuie sa arunce exceptie");
+    }
+
+    @Test
+    @DisplayName("Kill Mutant 2: Modificarea adunarii += in -= pentru bagajele gratuite ale VIP-urilor")
+    void testKillVipFreeBagsMutant() {
+        LuggageFareCalculator vipEconomy = new LuggageFareCalculator(LuggageFareCalculator.TicketClass.ECONOMY, true);
+        vipEconomy.addLuggage(10.0);
+        vipEconomy.addLuggage(10.0);
+
+        assertEquals(0.0, vipEconomy.calculateTotalFee(),
+                "VIP pe economy trebuie sa aiba 2 bagaje gratuite. Mutantul care scade bagajele va pica acest test");
+    }
+
 }
