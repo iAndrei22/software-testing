@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LuggageFareCalculatorTest {
+public class LuggageFareCalculatorTestInitial {
 
     private LuggageFareCalculator economyNormalCalc;
     private LuggageFareCalculator businessVipCalc;
@@ -104,4 +104,24 @@ public class LuggageFareCalculatorTest {
         assertEquals(0.0, economyNormalCalc.calculateTotalFee());
     }
 
+    @Test
+    @DisplayName("McCabe Path 3: Bagaje suplimentare pentru Business + VIP")
+    void testBusinessVipExtraBags() {
+        businessVipCalc.addLuggage(10.0);
+        businessVipCalc.addLuggage(10.0);
+        businessVipCalc.addLuggage(10.0);
+        businessVipCalc.addLuggage(10.0);
+
+        assertEquals(0.0, businessVipCalc.calculateTotalFee(), "VIP-urile nu sunt taxate nici pentru bagaj extra conform implementarii");
+    }
+
+    @Test
+    @DisplayName("McCabe Path 4: Combinatie complexa (Bagaj extra + Supragreutate + Economy)")
+    void testComplexScenario() {
+        economyNormalCalc.addLuggage(25.0);
+        economyNormalCalc.addLuggage(20.0);
+
+        double expectedFee = (2.0 * LuggageFareCalculator.OVERWEIGHT_FEE_PER_KG) + LuggageFareCalculator.EXTRA_BAG_FEE;
+        assertEquals(expectedFee, economyNormalCalc.calculateTotalFee());
+    }
 }
