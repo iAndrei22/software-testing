@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LuggageFareCalculatorTestAI {
+public class LuggageFareCalculatorAITest {
 
     private LuggageFareCalculator economyPassenger;
     private LuggageFareCalculator businessPassenger;
@@ -30,7 +30,7 @@ public class LuggageFareCalculatorTestAI {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new LuggageFareCalculator(null, false);
         });
-        assertEquals("Clasa de zbor nu poate fi null.", exception.getMessage());
+        assertEquals("Clasa de zbor nu poate fi null", exception.getMessage());
     }
 
     /**
