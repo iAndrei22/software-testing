@@ -1,3 +1,4 @@
+<img width="801" height="447" alt="prompt" src="https://github.com/user-attachments/assets/b0dfa015-308b-4385-b252-50080532ab11" />
 # Proiect Testarea Sistemelor Software - Luggage Fare Calculator
 
 ## Tema: Testare unitara in Java
@@ -90,6 +91,11 @@ Procesul a inclus generarea de mutanti si testarea lor cu suita dedicata. Confor
 
 ## Raport Utilizare AI
 In cadrul proiectului am utilizat AI-ul pentru a genera o suita de teste (`ai.LuggageFareCalculatorAITest`) si pentru a analiza codul sursa (`Documentatie/RaportAnalizaAI.md`).
+
+Promptul catre Gemini este: 
+
+<img width="801" height="447" alt="prompt" src="https://github.com/user-attachments/assets/f3262ab1-b9b1-44bd-bac6-d4f2b30a0783" />
+
 
 **Rezultate Coverage (JaCoCo):**
 - **Instruction Coverage**: 97%
