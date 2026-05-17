@@ -89,7 +89,7 @@ Procesul a inclus generarea de mutanti si testarea lor cu suita dedicata. Confor
 
 
 ## Raport Utilizare AI
-In cadrul proiectului am utilizat AI-ul pentru a genera o suita de teste (`ai.LuggageFareCalculatorAITest`) si pentru a analiza codul sursa (`Documentatie/RaportAnalizaAI.md`).
+In cadrul proiectului am utilizat AI-ul pentru a genera o suita de teste (`ai.LuggageFareCalculatorAITest`) si pentru a analiza codul sursa.
 
 Promptul catre Gemini este: 
 
