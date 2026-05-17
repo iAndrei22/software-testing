@@ -124,4 +124,4 @@ mvn pitest:mutationCoverage  # Ruleaza mutation testing si genereaza raport in t
 
 ## Demo si Prezentare
 - [Link Video Demo] - `Demo/Demo.mkv`
-- [Link Prezentare PPT/PDF] - `Documentatie/Documentatie.pdf`
+- [Link Prezentare] - https://canva.link/qu36e2zwmufnbvl
