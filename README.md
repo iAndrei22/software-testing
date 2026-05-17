@@ -1,4 +1,3 @@
-<img width="801" height="447" alt="prompt" src="https://github.com/user-attachments/assets/b0dfa015-308b-4385-b252-50080532ab11" />
 # Proiect Testarea Sistemelor Software - Luggage Fare Calculator
 
 ## Tema: Testare unitara in Java
