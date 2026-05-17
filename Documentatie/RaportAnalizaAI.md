@@ -24,37 +24,32 @@ Ambele suite de teste au utilizat strategii fundamentale de testare "black-box",
 
 ## 2. Analiza Acoperirii Codului (Code Coverage)
 
-Rularea raportului de acoperire a evidențiat o diferență cantitativă între cele două suite:
+Rularea raportului de acoperire a evidentiat o performanta ridicata in ambele suite, cu o atentie deosebita la detalii in suita AI:
 
-- **Suita Proprie:**  
-  A atins o acoperire a liniilor de cod de **94% (31 din 33 de linii)**.  
-  Analiza detaliată a raportului PIT arată că au rămas neacoperite metodele utilitare de acces (`getters`) `getTicketClass` și `isVip`.
+- **Suita Proprie (si General):**  
+  Conform raportului JaCoCo (`rezultateAI.jpeg`), am atins o acoperire a liniilor de cod de **98% (39 din 40 de linii)**.  
+  Singura linie ramasa neacoperita se afla in constructor, la validarea clasei de zbor, unde un mutant a supravietuit prin modificarea conditiei de aruncare a exceptiei.
 
 - **Suita AI:**  
-  A obținut o acoperire de **100% (33 din 33 de linii)**.  
-  Această performanță superioară se datorează includerii metodei `testUtilityMethodsAndReset`, care verifică explicit toți getterii și resetarea stării obiectului, asigurându-se că nicio linie de cod nu rămâne netestată.
+  A contribuit decisiv la atingerea unei acoperiri de **97% pe instructiuni** si **92% pe ramuri (branches)**.  
+  AI-ul a demonstrat o capacitate superioara de a genera teste pentru metodele utilitare (getteri, reset), asigurand ca aproape nicio linie de cod nu ramane netestata in fluxul principal.
 
 ---
 
-## 3. Eficiența Mutation Testing (PIT Reports)
+## 3. Eficienta Mutation Testing (PIT Reports)
 
-Deși acoperirea liniilor diferă, rezultatele la nivel de mutanți sunt surprinzător de similare:
+Rezultatele la nivel de mutanti ofera o perspectiva interesanta asupra profunzimii testelor:
 
 - **Mutation Coverage:**  
-  Ambele suite au obținut un scor de **84%**, reușind să elimine **26 din cei 31 de mutanți posibili**.
+  Conform raportului PIT (`pitTest.jpeg`), s-a obtinut un scor de **67%**, fiind omorati **20 din cei 30 de mutanti** generati.
 
-- **Mutanți Supraviețuitori:**  
-  În ambele cazuri, au supraviețuit mutanți la:
-  - linia 62 (modificarea incrementării `freeBagsAllowed += 1`)
-  - linia 68 (negarea condiției de extra bagaj în anumite contexte)
-
-  Acest lucru sugerează că, deși AI-ul este mai riguros în a atinge 100% line coverage, acesta întâmpină aceleași dificultăți logice ca și testarea manuală în a ucide mutanții din condiții logice compuse.
+- **Mutanti Supravietuitori:**  
+  Cei 10 mutanti ramasi in viata (33%) sunt localizati in principal in zonele de logica conditionala complexa:
+  - Conditiile de VIP (liniile 62-68), unde schimbarea operatorilor relationali sau a incrementarii nu a fost detectata de testele curente.
+  - Boundary-ul pentru greutatea maxima in anumite configuratii de clasa.
 
 - **Test Strength:**  
-  - Suita proprie: **93%**
-  - Suita AI: **84%**
-
-  Aceasta indică faptul că testele scrise manual au fost mai eficiente în a analiza codul pe care l-au acoperit efectiv, în timp ce suita AI a inclus mai multe teste simple (precum cele pentru getteri) care cresc acoperirea liniilor fără a adăuga complexitate logică mare.
+  Scorul de **83%** indica faptul ca testele existente sunt foarte eficiente pe codul pe care il acopera efectiv, dar exista inca "blind spots" in logica de business care permit supravietuirea unor mutatii subtile.
 
 ---
 
