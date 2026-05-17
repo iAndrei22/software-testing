@@ -1,3 +1,5 @@
+package com.pm;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +55,23 @@ public class LuggageFareCalculator {
 
         double totalFee = 0.0;
 
-        // stabileste limita de greutate in functie de clasa
-        double allowedWeight = (ticketClass == TicketClass.BUSINESS) ? MAX_WEIGHT_BUSINESS : MAX_WEIGHT_ECONOMY;
+        // stabileste limita de greutate: VIP-ul primeste limita de Business indiferent de clasa
+        double allowedWeight;
+        if(ticketClass == TicketClass.BUSINESS || isVip) {
+            allowedWeight = MAX_WEIGHT_BUSINESS;
+        }
+        else
+            allowedWeight = MAX_WEIGHT_ECONOMY;
 
-        // calculeaza numarul de bagaje gratuite
-        int freeBagsAllowed = (ticketClass == TicketClass.BUSINESS) ? 2 : 1;
+        // calculeaza numarul de bagaje gratuite: VIP-ul primeste +1 bagaj gratuit
+        int freeBagsAllowed;
+        if(ticketClass == TicketClass.BUSINESS)
+            freeBagsAllowed = 2;
+        else
+            freeBagsAllowed = 1;
+
         if (isVip) {
-            freeBagsAllowed += 1; // adaugare bagaj pentru statutul special unde se testeaza mutantii matematici
+            freeBagsAllowed += 1;
         }
 
         // bucla necesara pentru generarea ciclurilor in graf
@@ -68,12 +80,12 @@ public class LuggageFareCalculator {
             boolean isExtraBag = i >= freeBagsAllowed;
 
             // taxa pentru depasirea numarului de bagaje
-            if (isExtraBag && !isVip) {
+            if (isExtraBag) {
                 totalFee += EXTRA_BAG_FEE;
             }
 
             // taxa pentru depasirea greutatii permise
-            if (weight > allowedWeight && !isVip) {
+            if (weight > allowedWeight) {
                 totalFee += (weight - allowedWeight) * OVERWEIGHT_FEE_PER_KG;
             }
         }
